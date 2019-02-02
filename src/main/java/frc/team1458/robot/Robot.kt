@@ -7,6 +7,8 @@ import frc.team1458.lib.util.flow.delay
 import frc.team1458.lib.sensor.NavX
 import frc.team1458.lib.sensor.interfaces.AngleSensor
 import frc.team1458.lib.odom.EncoderOdom
+import frc.team1458.lib.pathfinding.PathUtils
+import frc.team1458.lib.pathfinding.PurePursuitFollower
 import frc.team1458.lib.util.LiveDashboard
 
 class  Robot : BaseRobot() {
@@ -26,13 +28,61 @@ class  Robot : BaseRobot() {
     override fun robotSetup() {
         println("Setup running...")
 
+
+
     }
 
     // Runs when auto mode is enabled (put actual autonomous code in the while loop)
     override fun runAuto() {
         println("Warning: Sandstorm")
 
-        while (isAutonomous && isEnabled) {
+        LiveDashboard.endPath()
+
+        // refresh data or zeroing out
+
+        dt.leftMaster.connectedEncoder.zero()
+        dt.rightMaster.connectedEncoder.zero()
+        gyro.zero()
+
+        odom.clear()
+        odom.setup()
+        odom.update()
+
+        val path = PathUtils.generateLinearPath(arrayOf(Pair(0.0, 0.0), Pair(0.0, 0.0), Pair(0.0, 0.0), Pair(0.0, 0.0), Pair(0.0, 0.0), Pair(0.0, 0.0), Pair(0.0, 0.0), Pair(0.0, 0.0),Pair(0.0, 0.0)), 0) // Todo change pair values
+
+        val lookAhead = 0
+        val scaling = 0
+        val velocity = 0
+        val maxV = 0
+        val wheelBase = 0
+        val pp = PurePursuitFollower(path, lookAhead, scaling, wheelBase, 0.0)
+
+        println("\nEncoder Start Data - left_enc:")
+
+        while (isAutonomous && isEnabled && !pp.finished(Pair(odom.pose.x, odom.pose.y))) {
+            odom.update()
+            LiveDashboard.putOdom(odom.pose)
+
+            var (l, r) = pp.getControl(Pair(odom.pose.x, odom.pose.y), odom.pose.theta, velocity.toDouble())
+
+            // velocity limit
+            if (l > maxV) {
+                // l = maxV
+                println("Warning: Velocity Limits Enforced!")
+            } else if (l < (maxV * -1.0)){
+                // l = maxV * -1.0
+                println("Warning: Velocity Limits Enforced!")
+            }
+            if (r > maxV) {
+                // r = maxV
+                println("Warning: Velocity Limits Enforced!")
+            } else if (r < maxV * -1.0){
+                // r = maxV * -1.0
+                println("Warning: Velocity Limits Enforced!")
+            }
+
+            dt.setDriveVelocity(l, r)
+
             delay(5)
         }
     }
