@@ -4,6 +4,10 @@ import frc.team1458.lib.actuator.SmartMotor
 import frc.team1458.lib.core.BaseRobot
 import frc.team1458.lib.drive.TankDrive
 import frc.team1458.lib.util.flow.delay
+import frc.team1458.lib.sensor.NavX
+import frc.team1458.lib.sensor.interfaces.AngleSensor
+import frc.team1458.lib.odom.EncoderOdom
+import frc.team1458.lib.util.LiveDashboard
 
 class  Robot : BaseRobot() {
 
@@ -14,7 +18,8 @@ class  Robot : BaseRobot() {
         leftMotors = arrayOf(SmartMotor.CANtalonSRX(12)),
         rightMotors = arrayOf(SmartMotor.CANtalonSRX(13))
     )
-
+    val gyro: AngleSensor = NavX.MXP_I2C().yaw.inverted
+    val odom = EncoderOdom(dt.leftEnc, dt.rightEnc, gyro)
     val drivetrainInverted: Boolean = false
 
     // Runs when the robot is setup (once)
@@ -39,6 +44,19 @@ class  Robot : BaseRobot() {
 
     // Runs when the robot receives commands from the diver station (about 50 times a second)
     override fun teleopPeriodic() {
+        odom.update()
+        LiveDashboard.putOdom(odom.pose)
+
+        dt.arcadeDrive(
+            if (drivetrainInverted){
+                -0.5 * (oi.throttleAxis.value)
+            } else if (oi.slowDownButton.triggered){
+                .5 * oi.throttleAxis.value
+            } else{
+                oi.throttleAxis.value
+            } ,
+            oi.steerAxis.value
+        )
 
     }
 

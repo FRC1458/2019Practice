@@ -9,5 +9,6 @@ class OI {
     var steerAxis = leftStick.rollAxis.scale(0.5) //controlBoard.xbox.rightX.scale(0.35) //
     var throttleAxis = rightStick.pitchAxis.inverted
 
+    var slowDownButton = rightStick.trigger
     var exampleButton = rightStick.trigger
 }
