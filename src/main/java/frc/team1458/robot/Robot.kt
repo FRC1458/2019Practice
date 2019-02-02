@@ -16,8 +16,6 @@ class  Robot : BaseRobot() {
     )
 
     val drivetrainInverted: Boolean = false
-    val testing: String = "testing"
-
 
     // Runs when the robot is setup (once)
     override fun robotSetup() {
