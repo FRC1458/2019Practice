@@ -22,7 +22,7 @@ class  Robot : BaseRobot() {
     // Runs when the robot is setup (once)
     override fun robotSetup() {
         println("Setup running...")
-
+    val ClosedLoopControl: masterControl
     }
 
     // Runs when auto mode is enabled (put actual autonomous code in the while loop)
