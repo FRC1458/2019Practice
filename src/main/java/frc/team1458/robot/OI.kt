@@ -11,7 +11,4 @@ class OI {
 
     var slowDownButton = rightStick.trigger
     var exampleButton = rightStick.trigger
-
-    var intakeIn = leftStick.getButton(5)
-    var intakeOut = leftStick.getButton(2)
 }

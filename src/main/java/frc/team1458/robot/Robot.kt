@@ -7,8 +7,6 @@ import frc.team1458.lib.util.flow.delay
 import frc.team1458.lib.sensor.NavX
 import frc.team1458.lib.sensor.interfaces.AngleSensor
 import frc.team1458.lib.odom.EncoderOdom
-import frc.team1458.lib.pathfinding.PathUtils
-import frc.team1458.lib.pathfinding.PurePursuitFollower
 import frc.team1458.lib.util.LiveDashboard
 
 class  Robot : BaseRobot() {
@@ -27,11 +25,11 @@ class  Robot : BaseRobot() {
     val intake2 = SmartMotor.CANtalonSRX(19)
     val intakeEnabled = false
 
+
+
     // Runs when the robot is setup (once)
     override fun robotSetup() {
         println("Setup running...")
-
-
 
     }
 
