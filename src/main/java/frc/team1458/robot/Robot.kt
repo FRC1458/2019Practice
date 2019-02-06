@@ -23,6 +23,9 @@ class  Robot : BaseRobot() {
     val gyro: AngleSensor = NavX.MXP_I2C().yaw.inverted
     val odom = EncoderOdom(dt.leftEnc, dt.rightEnc, gyro)
     val drivetrainInverted: Boolean = false
+    val intake1 = SmartMotor.CANtalonSRX(17).inverted
+    val intake2 = SmartMotor.CANtalonSRX(19)
+    val intakeEnabled = false
 
     // Runs when the robot is setup (once)
     override fun robotSetup() {
@@ -107,6 +110,24 @@ class  Robot : BaseRobot() {
             } ,
             oi.steerAxis.value
         )
+
+        if (intakeEnabled) {
+            if (oi.intakeIn.triggered){
+                intake1.speed = 1.0
+                intake2.speed = 1.0
+            }
+
+            else if (oi.intakeOut.triggered){
+                intake1.speed = -1.0
+                intake2.speed = -1.0
+            }
+
+            else{
+                intake1.speed = 0.0
+                intake2.speed = 0.0
+            }
+        }
+
 
     }
 
