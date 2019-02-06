@@ -9,7 +9,7 @@ import frc.team1458.lib.sensor.interfaces.AngleSensor
 import frc.team1458.lib.odom.EncoderOdom
 import frc.team1458.lib.util.LiveDashboard
 
-class  Robot : BaseRobot() {
+class  Robot(val ClosedLoopTank: Any = SmartMotor.CANtalonSRX, val masterControl: ArrayOf) : BaseRobot() {
 
     val oi: OI = OI()
     val dt: TankDrive = TankDrive(
@@ -27,10 +27,27 @@ class  Robot : BaseRobot() {
     // Runs when the robot is setup (once)
     override fun robotSetup() {
         println("Setup running...")
-    val ClosedLoopControl: masterControl
+
+        dt.leftMaster.connectedEncoder.zero()
+        dt.rightMaster.connectedEncoder.zero()
+        gyro.zero()
+
+        odom.setup()
+        odom.update()
+
+        LiveDashboard.setup(0,0) // TODO input values
+        LiveDashboard.endPath()
     }
 
-    // Runs when auto mode is enabled (put actual autonomous code in the while loop)
+
+
+    val drivetrainInverted: Boolean = false
+    val intakeEnabled: Boolean = false
+    val intake1 = SmartMotor.CANtalonSRX(17).inverted
+    val intake2 = SmartMotor.CANtalonSRX(19)
+
+
+        // Runs when auto mode is enabled (put actual autonomous code in the while loop)
     override fun runAuto() {
         println("Warning: Sandstorm")
 
@@ -59,7 +76,6 @@ class  Robot : BaseRobot() {
             } ,
             oi.steerAxis.value
         )
-
     }
 
     // Runs when test mode is being ran, not of any concern right now probably
