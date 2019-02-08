@@ -25,6 +25,10 @@ class  Robot : BaseRobot() {
     val drivetrainInverted: Boolean = false
     val intake1 = SmartMotor.CANtalonSRX(17).inverted
     val intake2 = SmartMotor.CANtalonSRX(19)
+    val solenoid1 = Solenoid.doubleSolenoid(1)
+    val solenoid2 = Solenoid.doubleSolenoid(2)
+    val solenoid3 = Solenoid.doubleSolenoid(3)
+    val solenoid4 = Solenoid.doubleSolenoid(4)
     val intakeEnabled = false
 
 
@@ -126,6 +130,15 @@ class  Robot : BaseRobot() {
                 intake1.speed = 0.0
                 intake2.speed = 0.0
             }
+        }
+        if (oi.mastersolenoid.triggered){
+            when True{
+                solenoid1.extend()
+                solenoid2.extend()
+                solenoid3.extend()
+                solenoid4.extend()
+            }
+
         }
 
 
