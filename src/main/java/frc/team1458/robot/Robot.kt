@@ -53,7 +53,7 @@ class  Robot : BaseRobot() {
 
         val path = PathUtils.generateLinearPath(arrayOf(Pair(0.0, 0.0), Pair(0.0, 0.0), Pair(0.0, 0.0), Pair(0.0, 0.0), Pair(0.0, 0.0), Pair(0.0, 0.0), Pair(0.0, 0.0), Pair(0.0, 0.0),Pair(0.0, 0.0)), 0) // Todo change pair values
 
-        val lookAhead = 0
+        val lookAhead = 0 // TODO add values
         val scaling = 0
         val velocity = 0
         val maxV = 0
