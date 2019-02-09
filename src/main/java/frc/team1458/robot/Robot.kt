@@ -169,7 +169,12 @@ class  Robot : BaseRobot() {
                 solenoid5.retract()
                 println("Solenoid retracted")
             }
-            if (oi.clawLevel.triggered){ //solenoid 6 is for level
+            if (oi.clawRaise.triggered){ //solenoid 6 is for level
+                println("Solenoid retracting")
+                solenoid5.retract()
+                println("Solenoid retracted")
+            }
+            if (oi.clawLower.triggered){
                 println("Solenoid extending...")
                 solenoid6.extend()
                 println("Solenoid extended...")
