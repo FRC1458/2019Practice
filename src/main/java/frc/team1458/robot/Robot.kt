@@ -38,8 +38,7 @@ class  Robot : BaseRobot() {
     val intakeEnabled = false
     var driveTrainEnabled = true
 
-
-
+    var count = 0
     // Runs when the robot is setup (once)
     override fun robotSetup() {
         println("Setup running...")
@@ -123,16 +122,21 @@ class  Robot : BaseRobot() {
                 oi.steerAxis.value)
         }
         if(oi.intakeIn.triggered){
-            intake1.speed = 1.0
-            intake2.speed = 1.0
+            intake1.speed = 1.0 * count
+            intake2.speed = 1.0 * count
+            count += 1
+
         }
         else if(oi.intakeOut.triggered) {
-            intake1.speed = -1.0
-            intake2.speed = -1.0
+            intake1.speed = -1.0 * count
+            intake2.speed = -1.0 * count
+            count += 1
         }
         else{
-            SmartMotor.CANtalonSRX(17).inverted.speed = 0.0
-            SmartMotor.CANtalonSRX(19).speed = 0.0
+            intake1.speed = 0.0
+            intake2.speed = 0.0
+            count = 0
+
         }
         if (oi.mastersolenoid.triggered){
             solenoid1.extend()
@@ -172,6 +176,8 @@ class  Robot : BaseRobot() {
             }
 
             driveTrainEnabled = true
+
+            
         }
     }
 
