@@ -7,9 +7,9 @@ import kotlin.math.* // TODO check if  messed with: changed from java math to ko
 
 class PurePursuitFollower(
     val points: Array<Pair<Double, Double>>,
-    val lookahead: Double,
-    val scaling: Double,
-    val wheelbase: Double, // Chassis width
+    val lookahead: Int,
+    val scaling: Int,
+    val wheelbase: Int, // Chassis width
     val targetTolerance: Double = 0.3
 ) {
 
