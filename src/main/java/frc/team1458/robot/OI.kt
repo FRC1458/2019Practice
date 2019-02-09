@@ -16,4 +16,7 @@ class OI {
     var intakeOut = leftStick.getButton(2)
     var mastersolenoid = rightStick.getButton(0)
 
+    var clawOpen = rightStick.getButton(1)
+    var clawClose = rightStick.getButton(6)
+    var clawLevel = rightStick.getButton(7)
 }

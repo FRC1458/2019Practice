@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj.AnalogInput
 interface DistanceSensor : Zeroable {
 
     val inverted : DistanceSensor
-        get() = create1({ -distanceMeters }, { -velocity })
+        get() = create({ -distanceMeters }, { -velocity })
 
     val distanceMeters : Double
         get
@@ -33,7 +33,7 @@ interface DistanceSensor : Zeroable {
         get() = velocity * 39.3700787402 / 12.0
 
     companion object {
-        fun create1(dist: () -> Double, vel: () -> Double) : DistanceSensor {
+        fun create(dist: () -> Double, vel: () -> Double) : DistanceSensor {
             return object : DistanceSensor {
                 @Volatile private var zero = 0.0
 
@@ -91,7 +91,7 @@ interface DistanceSensor : Zeroable {
         }
 
         fun distanceEncoder(angleSensor: AngleSensor, wheelCircumference: Double, gearing: Double = 1.0) : DistanceSensor {
-            return DistanceSensor.create1({ angleSensor.angle * wheelCircumference * gearing }, { angleSensor.rate * wheelCircumference * gearing })
+            return DistanceSensor.create({ angleSensor.angle * wheelCircumference * gearing }, { angleSensor.rate * wheelCircumference * gearing })
         }
 
         fun distanceEncoder(portA: Int, portB: Int = portA + 1, ratio: Double = 1.0, wheelCircumference: Double, reverse: Boolean = false, gearing: Double = 1.0) : DistanceSensor {
