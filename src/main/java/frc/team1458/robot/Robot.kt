@@ -120,25 +120,6 @@ class  Robot : BaseRobot() {
                 } ,
                 oi.steerAxis.value)
         }
-
-
-        if (intakeEnabled) {
-            if (oi.intakeIn.triggered){
-                intake1.speed = 1.0
-                intake2.speed = 1.0
-            }
-
-            else if (oi.intakeOut.triggered){
-                intake1.speed = -1.0
-                intake2.speed = -1.0
-            }
-
-            else{
-                intake1.speed = 0.0
-                intake2.speed = 0.0
-            }
-        }
-
         if (oi.mastersolenoid.triggered){
             solenoid1.extend()
             solenoid2.extend()

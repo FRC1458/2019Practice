@@ -12,7 +12,7 @@ class OI {
     var slowDownButton = rightStick.trigger
     var exampleButton = rightStick.trigger
 
-    var intakeIn = leftStick.getButton(5)
+    var intakeIn = leftStick.getButton(5)  //TODO change the button IDs
     var intakeOut = leftStick.getButton(2)
-    var mastersolenoid = rightStick.getButton()
+    var mastersolenoid = rightStick.getButton(0)
 }
