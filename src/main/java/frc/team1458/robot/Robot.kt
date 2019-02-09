@@ -27,12 +27,12 @@ class  Robot : BaseRobot() {
     val drivetrainInverted: Boolean = false
     val intake1 = SmartMotor.CANtalonSRX(17).inverted
     val intake2 = SmartMotor.CANtalonSRX(19)
-    val solenoid1 = Solenoid.doubleSolenoid(1, 1 ,1)
-    val solenoid2 = Solenoid.doubleSolenoid(2,2,2)
-    val solenoid3 = Solenoid.doubleSolenoid(3,3,3)
-    val solenoid4 = Solenoid.doubleSolenoid(4,4,4)
-    val DistanceSensor1 = DistanceSensor.create1({0.0}, {0.0})
-    val DistanceSensor2 = DistanceSensor.create1({0.0} , {0.0}) //TODO change IDs to real IDs later
+    val solenoid1 = Solenoid.doubleSolenoid(1,0,0)
+    val solenoid2 = Solenoid.doubleSolenoid(2,0,0)
+    val solenoid3 = Solenoid.doubleSolenoid(3,0,0)
+    val solenoid4 = Solenoid.doubleSolenoid(4,0,0)
+    val DistanceSensor1 = DistanceSensor.create({0.0},{0.0})
+    val DistanceSensor2 = DistanceSensor.create({0.0},{0.0}) //TODO change IDs to real IDs later
     val intakeEnabled = false
     var driveTrainEnabled = true
 
@@ -120,6 +120,7 @@ class  Robot : BaseRobot() {
                 } ,
                 oi.steerAxis.value)
         }
+
         if (oi.mastersolenoid.triggered){
             solenoid1.extend()
             solenoid2.extend()
