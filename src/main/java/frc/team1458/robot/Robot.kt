@@ -29,7 +29,10 @@ class  Robot : BaseRobot() {
     val solenoid2 = Solenoid.doubleSolenoid(2)
     val solenoid3 = Solenoid.doubleSolenoid(3)
     val solenoid4 = Solenoid.doubleSolenoid(4)
+    val DistanceSensor1 = DistanceSensor.create(0)
+    val DistanceSensor2 = DistanceSensor.create(0) //TODO change IDs to real IDs later
     val intakeEnabled = false
+    val driveTrainEnabled = true
 
 
 
@@ -104,16 +107,18 @@ class  Robot : BaseRobot() {
         odom.update()
         LiveDashboard.putOdom(odom.pose)
 
-        dt.arcadeDrive(
-            if (drivetrainInverted){
-                -0.5 * (oi.throttleAxis.value)
-            } else if (oi.slowDownButton.triggered){
-                .5 * oi.throttleAxis.value
-            } else{
-                oi.throttleAxis.value
-            } ,
-            oi.steerAxis.value
-        )
+        if (driveTrainEnabled) {
+            dt.arcadeDrive(
+                if (drivetrainInverted){
+                    -0.5 * (oi.throttleAxis.value)
+                } else if (oi.slowDownButton.triggered){
+                    .5 * oi.throttleAxis.value
+                } else{
+                    oi.throttleAxis.value
+                } ,
+                oi.steerAxis.value)
+        }
+
 
         if (intakeEnabled) {
             if (oi.intakeIn.triggered){
@@ -131,17 +136,30 @@ class  Robot : BaseRobot() {
                 intake2.speed = 0.0
             }
         }
+
         if (oi.mastersolenoid.triggered){
-            when True{
-                solenoid1.extend()
-                solenoid2.extend()
-                solenoid3.extend()
-                solenoid4.extend()
+            solenoid1.extend()
+            solenoid2.extend()
+            solenoid3.extend()
+            solenoid4.extend()
+            println("Solenoids extended.")
+            if (DistanceSensor1.distanceMeters == 0){ //TODO values later
+                println("Solenoids Retracting...")
+                driveTrainEnabled = false
+                solenoid1.retract()
+                solenoid2.retract()
+                println("Soldenoids Retracted.")
             }
-
+            driveTrainEnabled = true
+            if (DistanceSensor2.distanceMeters == 0){ //TODO values later
+                println("Solenoids Retracting...")
+                driveTrainEnabled = false
+                solenoid3.retract()
+                solenoid4.retract()
+                println("Soldenoids Retracted.")
+            }
+            driveTrainEnabled = true
         }
-
-
     }
 
     // Runs when test mode is being ran, not of any concern right now probably
