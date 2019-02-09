@@ -38,7 +38,7 @@ class  Robot : BaseRobot() {
     val intakeEnabled = false
     var driveTrainEnabled = true
 
-    var count = 0
+    var  speedMult= 0
     // Runs when the robot is setup (once)
     override fun robotSetup() {
         println("Setup running...")
@@ -122,20 +122,20 @@ class  Robot : BaseRobot() {
                 oi.steerAxis.value)
         }
         if(oi.intakeIn.triggered){
-            intake1.speed = 1.0 * count
-            intake2.speed = 1.0 * count
-            count += 1
+            intake1.speed = 1.0 * speedMult
+            intake2.speed = 1.0 * speedMult
+            speedMult += 1
 
         }
         else if(oi.intakeOut.triggered) {
-            intake1.speed = -1.0 * count
-            intake2.speed = -1.0 * count
-            count += 1
+            intake1.speed = -1.0 * speedMult
+            intake2.speed = -1.0 * speedMult
+            speedMult += 1
         }
         else{
             intake1.speed = 0.0
             intake2.speed = 0.0
-            count = 0
+            speedMult = 0
 
         }
         if (oi.mastersolenoid.triggered){
@@ -169,15 +169,15 @@ class  Robot : BaseRobot() {
                 solenoid5.retract()
                 println("Solenoid retracted")
             }
-            if (oi.clawRaise.triggered){ //solenoid 6 is for level
-                println("Solenoid retracting")
-                solenoid5.retract()
-                println("Solenoid retracted")
-            }
-            if (oi.clawLower.triggered){
+            if (oi.clawLevel.triggered){ //solenoid 6 is for level
                 println("Solenoid extending...")
                 solenoid6.extend()
                 println("Solenoid extended...")
+            }
+            else{
+                println("Solenoid retracting")
+                solenoid6.retract()
+                println("Solenoid retracted")
             }
 
             driveTrainEnabled = true

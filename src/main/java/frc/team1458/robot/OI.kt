@@ -18,7 +18,5 @@ class OI {
 
     var clawOpen = rightStick.getButton(1)
     var clawClose = rightStick.getButton(6)
-    var clawRaise = rightStick.getButton(7)
-    var clawLower = rightStick.getButton(8)
-
+    var clawLevel = rightStick.getButton(7)
 }
