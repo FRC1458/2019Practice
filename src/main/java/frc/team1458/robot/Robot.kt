@@ -1,6 +1,7 @@
 package frc.team1458.robot
 
 import frc.team1458.lib.actuator.SmartMotor
+import frc.team1458.lib.actuator.Solenoid
 import frc.team1458.lib.core.BaseRobot
 import frc.team1458.lib.drive.TankDrive
 import frc.team1458.lib.util.flow.delay
@@ -9,6 +10,7 @@ import frc.team1458.lib.sensor.interfaces.AngleSensor
 import frc.team1458.lib.odom.EncoderOdom
 import frc.team1458.lib.pathfinding.PathUtils
 import frc.team1458.lib.pathfinding.PurePursuitFollower
+import frc.team1458.lib.sensor.interfaces.DistanceSensor
 import frc.team1458.lib.util.LiveDashboard
 
 class  Robot : BaseRobot() {
@@ -25,14 +27,14 @@ class  Robot : BaseRobot() {
     val drivetrainInverted: Boolean = false
     val intake1 = SmartMotor.CANtalonSRX(17).inverted
     val intake2 = SmartMotor.CANtalonSRX(19)
-    val solenoid1 = Solenoid.doubleSolenoid(1)
-    val solenoid2 = Solenoid.doubleSolenoid(2)
-    val solenoid3 = Solenoid.doubleSolenoid(3)
-    val solenoid4 = Solenoid.doubleSolenoid(4)
-    val DistanceSensor1 = DistanceSensor.create(0)
-    val DistanceSensor2 = DistanceSensor.create(0) //TODO change IDs to real IDs later
+    val solenoid1 = Solenoid.doubleSolenoid(1,0,0)
+    val solenoid2 = Solenoid.doubleSolenoid(2,0,0)
+    val solenoid3 = Solenoid.doubleSolenoid(3,0,0)
+    val solenoid4 = Solenoid.doubleSolenoid(4,0,0)
+    val DistanceSensor1 = DistanceSensor.create({0.0},{0.0})
+    val DistanceSensor2 = DistanceSensor.create({0.0},{0.0}) //TODO change IDs to real IDs later
     val intakeEnabled = false
-    val driveTrainEnabled = true
+    var driveTrainEnabled = true
 
 
 
@@ -143,7 +145,7 @@ class  Robot : BaseRobot() {
             solenoid3.extend()
             solenoid4.extend()
             println("Solenoids extended.")
-            if (DistanceSensor1.distanceMeters == 0){ //TODO values later
+            if (DistanceSensor1.distanceMeters == 0.0){ //TODO values later
                 println("Solenoids Retracting...")
                 driveTrainEnabled = false
                 solenoid1.retract()
@@ -151,7 +153,7 @@ class  Robot : BaseRobot() {
                 println("Soldenoids Retracted.")
             }
             driveTrainEnabled = true
-            if (DistanceSensor2.distanceMeters == 0){ //TODO values later
+            if (DistanceSensor2.distanceMeters == 0.0){ //TODO values later
                 println("Solenoids Retracting...")
                 driveTrainEnabled = false
                 solenoid3.retract()
