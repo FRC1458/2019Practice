@@ -155,6 +155,22 @@ class  Robot : BaseRobot() {
                 solenoid4.retract()
                 println("Soldenoids Retracted.")
             }
+            if (oi.clawOpen.triggered){ //solenoid 5 is for claw
+                println("Solenoid extending...")
+                solenoid5.extend()
+                println("Solenoid extended...")
+            }
+            if (oi.clawClose.triggered){
+                println("Solenoid retracting")
+                solenoid5.retract()
+                println("Solenoid retracted")
+            }
+            if (oi.clawLevel.triggered){ //solenoid 6 is for level
+                println("Solenoid extending...")
+                solenoid6.extend()
+                println("Solenoid extended...")
+            }
+
             driveTrainEnabled = true
         }
     }
