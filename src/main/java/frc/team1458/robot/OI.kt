@@ -14,5 +14,6 @@ class OI {
 
     var intakeIn = leftStick.getButton(5)
     var intakeOut = leftStick.getButton(2)
-    var mastersolenoid = rightStick.getButton()
+    var mastersolenoid = rightStick.getButton(0)
+
 }
