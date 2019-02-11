@@ -149,7 +149,7 @@ class  Robot : BaseRobot() {
                 driveTrainEnabled = false
                 solenoid1.retract()
                 solenoid2.retract()
-                println("Soldenoids Retracted.")
+                println("Solenoids Retracted.")
             }
             driveTrainEnabled = true
             if (DistanceSensor2.distanceMeters == 0.0){ //TODO values later
@@ -157,8 +157,10 @@ class  Robot : BaseRobot() {
                 driveTrainEnabled = false
                 solenoid3.retract()
                 solenoid4.retract()
-                println("Soldenoids Retracted.")
+                println("Solenoids Retracted.")
             }
+            driveTrainEnabled = true
+
             if (oi.clawOpen.triggered){ //solenoid 5 is for claw
                 println("Solenoid extending...")
                 solenoid5.extend()
@@ -179,10 +181,6 @@ class  Robot : BaseRobot() {
                 solenoid6.retract()
                 println("Solenoid retracted")
             }
-
-            driveTrainEnabled = true
-
-            
         }
     }
 
