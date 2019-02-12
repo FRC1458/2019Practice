@@ -33,8 +33,8 @@ class  Robot : BaseRobot() {
     val solenoid4 = Solenoid.doubleSolenoid(4,0,0)
     val solenoid5 = Solenoid.doubleSolenoid(5,0,0)
     val solenoid6 = Solenoid.doubleSolenoid(6,0,0)
-    val DistanceSensor1 = DistanceSensor.create({0.0},{0.0})
-    val DistanceSensor2 = DistanceSensor.create({0.0},{0.0}) //TODO change IDs to real IDs later
+    val distanceSensor1 = DistanceSensor.create({0.0},{0.0})
+    val distanceSensor2 = DistanceSensor.create({0.0},{0.0}) //TODO change IDs to real IDs later
     val intakeEnabled = false
     var driveTrainEnabled = true
 
@@ -138,48 +138,49 @@ class  Robot : BaseRobot() {
             speedMult = 0
 
         }
+        // Too many print statements would lag the code apparently.
         if (oi.mastersolenoid.triggered){
             solenoid1.extend()
             solenoid2.extend()
             solenoid3.extend()
             solenoid4.extend()
-            println("Solenoids extended.")
-            if (DistanceSensor1.distanceMeters == 0.0){ //TODO values later
-                println("Solenoids Retracting...")
+            //println("Solenoids extended.")
+            if (distanceSensor1.distanceMeters == 0.0){ //TODO values later
+                //println("Solenoids Retracting...")
                 driveTrainEnabled = false
                 solenoid1.retract()
                 solenoid2.retract()
-                println("Solenoids Retracted.")
+                //println("Solenoids Retracted.")
             }
             driveTrainEnabled = true
-            if (DistanceSensor2.distanceMeters == 0.0){ //TODO values later
-                println("Solenoids Retracting...")
+            if (distanceSensor2.distanceMeters == 0.0){ //TODO values later
+                //println("Solenoids Retracting...")
                 driveTrainEnabled = false
                 solenoid3.retract()
                 solenoid4.retract()
-                println("Solenoids Retracted.")
+                //println("Solenoids Retracted.")
             }
             driveTrainEnabled = true
 
             if (oi.clawOpen.triggered){ //solenoid 5 is for claw
-                println("Solenoid extending...")
+                //println("Solenoid Extending...")
                 solenoid5.extend()
-                println("Solenoid extended...")
+                //println("Solenoid Extended.")
             }
             if (oi.clawClose.triggered){
-                println("Solenoid retracting")
+                //println("Solenoid Retracting...")
                 solenoid5.retract()
-                println("Solenoid retracted")
+                //println("Solenoid Retracted.")
             }
             if (oi.clawLevel.triggered){ //solenoid 6 is for level
-                println("Solenoid extending...")
+                //println("Solenoid Extending...")
                 solenoid6.extend()
-                println("Solenoid extended...")
+                //println("Solenoid Extended.")
             }
             else{
-                println("Solenoid retracting")
+                //println("Solenoid retracting...")
                 solenoid6.retract()
-                println("Solenoid retracted")
+                //println("Solenoid retracted.")
             }
         }
     }
